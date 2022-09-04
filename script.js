@@ -30,9 +30,24 @@ const checkWinner = () => {
       gameBoard[combo[0]] === gameBoard[combo[1]] &&
       gameBoard[combo[0]] === gameBoard[combo[2]]
     ) {
-      console.log(`xdd`);
       gameState = false;
+      console.log(activePlayer.name);
+      if (activePlayer.name === `player1`) {
+        return (message.textContent = `Player 1 won`);
+      } else if (activePlayer.name === `player2`) {
+        return (message.textContent = `Player 2 won`);
+      }
     }
+  }
+};
+const checkDraw = () => {
+  let tempGameBoard = gameBoard.filter((symbol) => {
+    return symbol === ``;
+  });
+  console.log(tempGameBoard);
+  if (tempGameBoard.length === 0) {
+    gameState = false;
+    message.textContent = `It is a draw`;
   }
 };
 
@@ -45,26 +60,29 @@ boxes.forEach((box, index) => {
   box.addEventListener(`click`, () => {
     if (gameState === true) {
       if (activePlayer.name === `player1` && gameBoard[index] === ``) {
-        gameBoard[index] = player1.marker;
-        activePlayer.name = `player2`;
+        gameBoard[index] = activePlayer.marker;
         box.insertAdjacentHTML(`afterbegin`, htmlXElement);
-        checkWinner();
         message.textContent = `Player 2 turn`;
-        if (gameState === false) {
-          message.textContent = `Player 1 won`;
-        }
+        checkWinner();
+        checkDraw();
+        activePlayer = player2;
+
+        // if (gameState === false) {
+        //   message.textContent = `Player 1 won`;
+        // }
       } else if (activePlayer.name === `player2` && gameBoard[index] === ``) {
         gameBoard[index] = player2.marker;
         box.insertAdjacentHTML(`afterbegin`, htmlOElement);
-        activePlayer.name = `player1`;
-        checkWinner();
         message.textContent = `Player 1 turn`;
-        if (gameState === false) {
-          message.textContent = `Player 2 won`;
-        }
+        checkWinner();
+        checkDraw();
+        activePlayer = player1;
+
+        // if (gameState === false) {
+        //   message.textContent = `Player 2 won`;
+        // }
       }
     }
-    console.log(gameBoard);
   });
 });
 
@@ -72,7 +90,8 @@ resetButton.addEventListener(`click`, () => {
   gameState = true;
   activePlayer = player1;
   gameBoard = ["", "", "", "", "", "", "", "", ""];
-  boxes.forEach((box, index) => {
+
+  boxes.forEach((box) => {
     box.innerHTML = ``;
   });
   message.textContent = `Game restarted, Player 1 turn`;
