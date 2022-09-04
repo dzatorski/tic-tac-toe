@@ -43,7 +43,11 @@ const checkDraw = () => {
   let tempGameBoard = gameBoard.filter((symbol) => {
     return symbol === ``;
   });
-  if (tempGameBoard.length === 0) {
+  if (
+    tempGameBoard.length === 0 &&
+    message.textContent === `Player 1 won` &&
+    message.textContent === `Player 2 won`
+  ) {
     gameState = false;
     message.textContent = `It is a draw`;
   }
