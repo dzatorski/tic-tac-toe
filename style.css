@@ -7,9 +7,10 @@ h1 {
 .game {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .gameBoard {
-  margin-top: 200px;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 0.0001fr);
   grid-template-rows: 3, 1fr;
