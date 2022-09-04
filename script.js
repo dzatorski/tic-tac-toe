@@ -2,6 +2,7 @@ const message = document.querySelector(`.message`);
 const resetButton = document.querySelector(`.reset-button`);
 let gameBoard = ["", "", "", "", "", "", "", "", ""];
 let gameState = true;
+//Players constructor
 const playerFactory = function (name, marker) {
   this.name = name;
   this.marker = marker;
@@ -11,7 +12,9 @@ const player1 = new playerFactory(`player1`, `x`);
 const player2 = new playerFactory(`player2`, `o`);
 /// Setting active player to player number1
 let activePlayer = player1;
+
 message.textContent = `Player 1 turn`;
+
 const winningCombinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -56,8 +59,8 @@ const checkDraw = () => {
 const boxes = document.querySelectorAll(`.box`);
 const htmlXElement = `<h1>X</h1>`;
 const htmlOElement = `<h1>O</h1>`;
-/// Creating the game
 
+/// Creating the game
 boxes.forEach((box, index) => {
   box.addEventListener(`click`, () => {
     if (gameState === true) {
@@ -79,6 +82,8 @@ boxes.forEach((box, index) => {
     }
   });
 });
+
+//Resetting the game
 resetButton.addEventListener(`click`, () => {
   gameState = true;
   activePlayer = player1;
